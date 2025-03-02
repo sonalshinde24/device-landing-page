@@ -31,7 +31,7 @@
     </style>
   </head>
   <body>
-    <h1>Select Method</h1>
+    <h1>Select One Method</h1>
     <!-- Buttons for Issue and Return -->
     <a class="btn" id="issueBtn" target="_blank">Issue Device</a>
     <a class="btn return" id="returnBtn" target="_blank">Return Device</a>
@@ -48,24 +48,25 @@
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
       }
 
-      // Only need the device name, so extract that from the URL.
-      // For example, if the URL is ...?device_name=Laptop, this will capture "Laptop".
+      // Extract device_name from the URL
       var deviceName = getParameterByName('device_name') || '';
 
-      // Your Google Form URLs for issue and return transactions.
-      var issueFormBase = "https://docs.google.com/forms/d/e/1FAIpQLSeKvsCsvV9m7LoFTcS5ELCm4ucEYp1_67jEt2_yptqdOoIIeA/viewform?usp=pp_url";
+      // Your Google Form base URLs, now with "?usp=pp_url" so we can append "&entry..."
+      var issueFormBase  = "https://docs.google.com/forms/d/e/1FAIpQLSeKvsCsvV9m7LoFTcS5ELCm4ucEYp1_67jEt2_yptqdOoIIeA/viewform?usp=pp_url";
       var returnFormBase = "https://docs.google.com/forms/d/e/1FAIpQLSc4Ej93dZ2F-_i4RrVE5lyr7-KIyGwuIr1VM423havUcegxMw/viewform?usp=pp_url";
 
-      // Build the links for Issue and Return forms, pre-filling only the device name.
-      // Adjust "entry.2222222222" to match your actual pre-fill field for device name.
-      var issueLink = issueFormBase +
-        "&entry.969953763=" + encodeURIComponent(deviceName);
-      var returnLink = returnFormBase +
-        "&entry.1647666867=" + encodeURIComponent(deviceName);
+      // Build links for Issue and Return, passing only deviceName
+      // Confirm "entry.969953763" and "entry.1647666867" match your actual form fields
+      var issueLink = issueFormBase  + "&entry.969953763="   + encodeURIComponent(deviceName);
+      var returnLink = returnFormBase + "&entry.1647666867=" + encodeURIComponent(deviceName);
 
-      // Set the href attribute of the buttons to the generated URLs.
+      // Assign these URLs to the buttons
       document.getElementById('issueBtn').setAttribute('href', issueLink);
       document.getElementById('returnBtn').setAttribute('href', returnLink);
+
+      // (Optional) Debug: Log the final URLs
+      console.log("Issue Link:", issueLink);
+      console.log("Return Link:", returnLink);
     </script>
   </body>
 </html>
