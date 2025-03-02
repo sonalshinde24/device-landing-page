@@ -48,30 +48,22 @@
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
       }
 
-      // Read device_id and device_name from the URL parameters
-      var deviceId = getParameterByName('device_id') || '';
+      // Only need the device name, so extract that from the URL.
+      // For example, if the URL is ...?device_name=Laptop, this will capture "Laptop".
       var deviceName = getParameterByName('device_name') || '';
 
       // Your Google Form URLs for issue and return transactions.
-      // Replace these placeholders with your actual Google Form URLs.
-      var issueFormBase = "https://docs.google.com/forms/d/e/YOUR_ISSUE_FORM_URL/viewform?usp=pp_url";
-      var returnFormBase = "https://docs.google.com/forms/d/e/YOUR_RETURN_FORM_URL/viewform?usp=pp_url";
+      var issueFormBase = "https://docs.google.com/forms/d/e/1FAIpQLSeKvsCsvV9m7LoFTcS5ELCm4ucEYp1_67jEt2_yptqdOoIIeA/viewform?usp=pp_url";
+      var returnFormBase = "https://docs.google.com/forms/d/e/1FAIpQLSc4Ej93dZ2F-_i4RrVE5lyr7-KIyGwuIr1VM423havUcegxMw/viewform?usp=pp_url";
 
-      // Pre-fill parameters.
-      // In your Google Form, create pre-fill links to get the entry IDs.
-      // For example, suppose your Issue Form has fields:
-      //   Device ID: entry.1111111111
-      //   Device Name: entry.2222222222
-      // Adjust these entry numbers based on your actual form.
+      // Build the links for Issue and Return forms, pre-filling only the device name.
+      // Adjust "entry.2222222222" to match your actual pre-fill field for device name.
       var issueLink = issueFormBase +
-        "&entry.1111111111=" + encodeURIComponent(deviceId) +
-        "&entry.2222222222=" + encodeURIComponent(deviceName);
-
+        "&entry.969953763=" + encodeURIComponent(deviceName);
       var returnLink = returnFormBase +
-        "&entry.1111111111=" + encodeURIComponent(deviceId) +
-        "&entry.2222222222=" + encodeURIComponent(deviceName);
+        "&entry.1647666867=" + encodeURIComponent(deviceName);
 
-      // Set the href attribute of the buttons
+      // Set the href attribute of the buttons to the generated URLs.
       document.getElementById('issueBtn').setAttribute('href', issueLink);
       document.getElementById('returnBtn').setAttribute('href', returnLink);
     </script>
