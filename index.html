@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Device Transaction</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        text-align: center;
+      }
+      h1 {
+        margin-bottom: 30px;
+      }
+      .btn {
+        display: block;
+        padding: 15px 20px;
+        margin: 10px auto;
+        width: 80%;
+        max-width: 300px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 18px;
+      }
+      .btn.return {
+        background-color: #f44336;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Select Transaction</h1>
+    <!-- Buttons for Issue and Return -->
+    <a class="btn" id="issueBtn" target="_blank">Issue Device</a>
+    <a class="btn return" id="returnBtn" target="_blank">Return Device</a>
+
+    <script>
+      // Function to get query parameters from the URL
+      function getParameterByName(name) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var url = window.location.href;
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+      }
+
+      // Read device_id and device_name from the URL parameters
+      var deviceId = getParameterByName('device_id') || '';
+      var deviceName = getParameterByName('device_name') || '';
+
+      // Your Google Form URLs for issue and return transactions.
+      // Replace these placeholders with your actual Google Form URLs.
+      var issueFormBase = "https://docs.google.com/forms/d/e/YOUR_ISSUE_FORM_URL/viewform?usp=pp_url";
+      var returnFormBase = "https://docs.google.com/forms/d/e/YOUR_RETURN_FORM_URL/viewform?usp=pp_url";
+
+      // Pre-fill parameters.
+      // In your Google Form, create pre-fill links to get the entry IDs.
+      // For example, suppose your Issue Form has fields:
+      //   Device ID: entry.1111111111
+      //   Device Name: entry.2222222222
+      // Adjust these entry numbers based on your actual form.
+      var issueLink = issueFormBase +
+        "&entry.1111111111=" + encodeURIComponent(deviceId) +
+        "&entry.2222222222=" + encodeURIComponent(deviceName);
+
+      var returnLink = returnFormBase +
+        "&entry.1111111111=" + encodeURIComponent(deviceId) +
+        "&entry.2222222222=" + encodeURIComponent(deviceName);
+
+      // Set the href attribute of the buttons
+      document.getElementById('issueBtn').setAttribute('href', issueLink);
+      document.getElementById('returnBtn').setAttribute('href', returnLink);
+    </script>
+  </body>
+</html>
