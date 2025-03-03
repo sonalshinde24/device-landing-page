@@ -3,15 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Device Transaction</title>
+    <title>QR-Based Device Tracking System</title>
     <style>
       body {
         font-family: Arial, sans-serif;
         margin: 20px;
         text-align: center;
+        background-color: #f4f4f4;
+      }
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        margin: auto;
+      }
+      img {
+        max-width: 150px;
+        margin-bottom: 10px;
       }
       h1 {
-        margin-bottom: 30px;
+        margin-bottom: 10px;
+        color: #003366;
+      }
+      p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
       }
       .btn {
         display: block;
@@ -19,25 +38,33 @@
         margin: 10px auto;
         width: 80%;
         max-width: 300px;
-        background-color: #4CAF50;
+        background-color: #0073e6;
         color: white;
         text-decoration: none;
         border-radius: 5px;
         font-size: 18px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .btn:hover {
+        opacity: 0.8;
       }
       .btn.return {
-        background-color: #f44336;
+        background-color: #d9534f;
       }
     </style>
   </head>
   <body>
-    <h1>Select One Method</h1>
-    <!-- Buttons for Issue and Return -->
-    <a class="btn" id="issueBtn" target="_blank">Issue Device</a>
-    <a class="btn return" id="returnBtn" target="_blank">Return Device</a>
-
+    <div class="container">
+      <img src="Tata_logo.png" alt="Tata Motors Logo" />
+      <h1>QR-Based Device Tracking System</h1>
+      <p>Welcome to the QR-Based Device Tracking System – Powered by Tata Motors.<br>Simplifying device management with effortless scanning. Issue, return with ease.</p>
+      
+      <a class="btn" id="issueBtn" target="_blank">Issue Device</a>
+      <a class="btn return" id="returnBtn" target="_blank">Return Device</a>
+    </div>
+    
     <script>
-      // Function to get query parameters from the URL
       function getParameterByName(name) {
         name = name.replace(/[\[\]]/g, '\\$&');
         var url = window.location.href;
@@ -47,26 +74,16 @@
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
       }
-
-      // Extract device_name from the URL
+      
       var deviceName = getParameterByName('device_name') || '';
-
-      // Your Google Form base URLs, now with "?usp=pp_url" so we can append "&entry..."
       var issueFormBase  = "https://docs.google.com/forms/d/e/1FAIpQLSeKvsCsvV9m7LoFTcS5ELCm4ucEYp1_67jEt2_yptqdOoIIeA/viewform?usp=pp_url";
       var returnFormBase = "https://docs.google.com/forms/d/e/1FAIpQLSc4Ej93dZ2F-_i4RrVE5lyr7-KIyGwuIr1VM423havUcegxMw/viewform?usp=pp_url";
-
-      // Build links for Issue and Return, passing only deviceName
-      // Confirm "entry.969953763" and "entry.1647666867" match your actual form fields
+      
       var issueLink = issueFormBase  + "&entry.969953763="   + encodeURIComponent(deviceName);
       var returnLink = returnFormBase + "&entry.1647666867=" + encodeURIComponent(deviceName);
-
-      // Assign these URLs to the buttons
+      
       document.getElementById('issueBtn').setAttribute('href', issueLink);
       document.getElementById('returnBtn').setAttribute('href', returnLink);
-
-      // (Optional) Debug: Log the final URLs
-      console.log("Issue Link:", issueLink);
-      console.log("Return Link:", returnLink);
     </script>
   </body>
 </html>
